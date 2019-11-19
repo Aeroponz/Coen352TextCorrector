@@ -37,21 +37,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         }
         return null;
     }
-    
-    public void SetValue(Key key, Value value) throws Exception
-    {
-    	Node x = root;
-    	while (x != null) {
-            int cmp = key.compareTo(x.key);
-            if      (cmp < 0) x = x.left;
-            else if (cmp > 0) x = x.right;
-            else
-            {
-            	x.val = value;
-            }
-        }
-        throw new Exception("Key not found!");
-    }
 
     // is there a key-value pair in the symbol table with the given key?
     public boolean contains(Key key) {

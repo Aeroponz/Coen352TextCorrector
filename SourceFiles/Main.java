@@ -10,7 +10,7 @@ import java.io.*;
             Path currentRelativePath = Paths.get("");
             final String os = System.getProperty("os.name");
             String path = "";
-            int FilesToCorrect = 19;
+            int FilesToCorrect = 20;
 
             if(os.contains("Windows")){
                 path = currentRelativePath.toAbsolutePath().toString();
@@ -38,7 +38,7 @@ import java.io.*;
             System.out.println("BST is healthy: " + dictionary.check());
             System.out.println("");
             
-            for(int i = 0; i < 1; i++)
+            for(int i = 0; i < FilesToCorrect; i++)
             {
             	System.out.println("\nStarting Word Frequency Analysis ( " + (i+1) + "/" + FilesToCorrect + " )");
             	System.out.println("Start Time: " + System.currentTimeMillis());
