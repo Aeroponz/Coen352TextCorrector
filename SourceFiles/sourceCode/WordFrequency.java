@@ -1,5 +1,7 @@
+package sourceCode;
 import java.io.BufferedReader;
 import java.util.*;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.io.File;
 import java.io.FileReader;
@@ -21,7 +23,7 @@ public class WordFrequency
 		Dictionary = iDictionary;
 	}
 	
-	public String AnalyseFile() throws Exception
+	public void AnalyseFile() throws Exception
 	{
 		File file = new File(FilePath);
 		String[] test = FilePath.split(Matcher.quoteReplacement(System.getProperty("file.separator")));
@@ -41,24 +43,34 @@ public class WordFrequency
     			 	if(!FoundWords.containsKey(wWord)) FoundWords.put(wWord, 1);
     			 	else FoundWords.put(wWord, FoundWords.get(wWord) + 1);
     			}
+//        		if(Dictionary.contains(word))
+//        		{
+//        			if(!FoundWords.containsKey(word)) FoundWords.put(word, 1);
+//    			 	else FoundWords.put(word, FoundWords.get(word) + 1);
+//        		}
         	}
         }
         br.close();
-        
-		return PrintOutputFile(FoundWords, FileName);
+        PrintOutputFile(FoundWords, FileName);
 	}
-	public String PrintOutputFile(HashMap<String, Integer> Hits, String FileName) throws IOException
+	public void PrintOutputFile(HashMap<String, Integer> Hits, String FileName) throws IOException
 	{
-		PrintWriter out = new PrintWriter(new FileWriter(Paths.get("").toAbsolutePath().toString() + "\\OutputFiles\\frequencies" + FileName));
-		
+		PrintWriter outFreq = new PrintWriter(new FileWriter(Paths.get("").toAbsolutePath().toString() + "\\OutputFiles\\A\\frequencies" + FileName));
+		PrintWriter outRepeated = new PrintWriter(new FileWriter(Paths.get("").toAbsolutePath().toString() + "\\OutputFiles\\A\\repeated" + FileName));
 		List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(Hits.entrySet()); 
 		Collections.sort(list, new ValueThenKeyComparator<String, Integer>());
+		for(Entry<String, Integer> pair : list)
+		{
+			for(int i = 0; i< pair.getValue(); i++)
+			{
+				outRepeated.print(pair.getKey() + " ");
+			}
+		}
+		outRepeated.close();
 		String HitsToString = list.toString().replaceAll(", ", "\n");
 		HitsToString = (HitsToString.replaceAll("=", " ")).substring(1, HitsToString.length() - 1);
-		
-		out.print(HitsToString);
-		out.close();
-		return "";
+		outFreq.print(HitsToString);
+		outFreq.close();
 	}
 	//Method for sorting the TreeMap based on values
 	public class ValueThenKeyComparator<K extends Comparable<? super K>, V extends Comparable<? super V>> implements Comparator<Map.Entry<K, V>> {

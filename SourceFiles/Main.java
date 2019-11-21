@@ -1,4 +1,8 @@
 import java.nio.file.Paths;
+
+import sourceCode.RedBlackBST;
+import sourceCode.WordFrequency;
+
 import java.nio.file.Path;
 import java.io.*;
 
@@ -30,7 +34,7 @@ import java.io.*;
             	String[] splitDict = sts.split(" ");
             	for(String word : splitDict)
             	{
-            		dictionary.put(word, 0);
+            		dictionary.put(word.toLowerCase(), 0);
             	}
             }
             br.close();
