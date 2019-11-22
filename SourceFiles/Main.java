@@ -2,6 +2,7 @@ import java.nio.file.Paths;
 
 import sourceCode.RedBlackBST;
 import sourceCode.WordFrequency;
+import sourceCode.WhitespaceCorrection;
 
 import java.nio.file.Path;
 import java.io.*;
@@ -42,13 +43,25 @@ import java.io.*;
             System.out.println("BST is healthy: " + dictionary.check());
             System.out.println("");
             
+            //PART A
+//            for(int i = 0; i < FilesToCorrect; i++)
+//            {
+//            	System.out.println("\nStarting Word Frequency Analysis ( " + (i+1) + "/" + FilesToCorrect + " )");
+//            	System.out.println("Start Time: " + System.currentTimeMillis());
+//            	long start = System.currentTimeMillis();
+//            	WordFrequency File1 = new WordFrequency(path + "\\InputFiles\\CleanText\\" + i + ".txt", dictionary);
+//            	File1.AnalyseFile();
+//            	long finish = System.currentTimeMillis();
+//            	System.out.println("Word Frequency Analysis Completed.\nEnd Time: " + finish + "\nRuntime: " + (finish - start));
+//            }
+            //PART B
             for(int i = 0; i < FilesToCorrect; i++)
             {
             	System.out.println("\nStarting Word Frequency Analysis ( " + (i+1) + "/" + FilesToCorrect + " )");
             	System.out.println("Start Time: " + System.currentTimeMillis());
             	long start = System.currentTimeMillis();
-            	WordFrequency File1 = new WordFrequency(path + "\\InputFiles\\CleanText\\" + i + ".txt", dictionary);
-            	File1.AnalyseFile();
+            	WhitespaceCorrection File1 = new WhitespaceCorrection(path + "\\InputFiles\\RemovedSpaces\\" + i + ".txt", dictionary);
+            	File1.CorrectWhiteSpaces();
             	long finish = System.currentTimeMillis();
             	System.out.println("Word Frequency Analysis Completed.\nEnd Time: " + finish + "\nRuntime: " + (finish - start));
             }

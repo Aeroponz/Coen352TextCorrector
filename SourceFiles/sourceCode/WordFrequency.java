@@ -43,11 +43,6 @@ public class WordFrequency
     			 	if(!FoundWords.containsKey(wWord)) FoundWords.put(wWord, 1);
     			 	else FoundWords.put(wWord, FoundWords.get(wWord) + 1);
     			}
-//        		if(Dictionary.contains(word))
-//        		{
-//        			if(!FoundWords.containsKey(word)) FoundWords.put(word, 1);
-//    			 	else FoundWords.put(word, FoundWords.get(word) + 1);
-//        		}
         	}
         }
         br.close();
@@ -55,8 +50,8 @@ public class WordFrequency
 	}
 	public void PrintOutputFile(HashMap<String, Integer> Hits, String FileName) throws IOException
 	{
-		PrintWriter outFreq = new PrintWriter(new FileWriter(Paths.get("").toAbsolutePath().toString() + "\\OutputFiles\\A\\frequencies" + FileName));
-		PrintWriter outRepeated = new PrintWriter(new FileWriter(Paths.get("").toAbsolutePath().toString() + "\\OutputFiles\\A\\repeated" + FileName));
+		PrintWriter outFreq = new PrintWriter(new FileWriter(Paths.get("").toAbsolutePath().toString() + "\\OutputFiles\\frequencies" + FileName));
+		PrintWriter outRepeated = new PrintWriter(new FileWriter(Paths.get("").toAbsolutePath().toString() + "\\OutputFiles\\repeated" + FileName));
 		List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(Hits.entrySet()); 
 		Collections.sort(list, new ValueThenKeyComparator<String, Integer>());
 		for(Entry<String, Integer> pair : list)
