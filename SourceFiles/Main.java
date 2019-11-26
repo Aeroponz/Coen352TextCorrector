@@ -37,7 +37,7 @@ import java.io.*;
             	String[] splitDict = sts.split(" ");
             	for(String word : splitDict)
             	{
-            		dictionary.put(word.toLowerCase(), 0);
+            		dictionary.put(word.toLowerCase(), word.length());
             	}
             }
             br.close();
@@ -76,6 +76,7 @@ import java.io.*;
             	System.out.println("Word Frequency Analysis Completed.\nEnd Time: " + finish + "\nRuntime: " + (finish - start));
             }
             
-            System.out.println(LevenshteinDistance.getLevenshteinDistance("t<ain", "train"));
+            
+            dictionary.visitNode("en%ering");
        } 
    } 

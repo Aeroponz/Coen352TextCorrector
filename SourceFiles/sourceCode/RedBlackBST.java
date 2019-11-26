@@ -1,4 +1,5 @@
 package sourceCode;
+
 public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     private static final boolean RED   = true;
@@ -42,6 +43,32 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
     // is there a key-value pair in the symbol table with the given key?
     public boolean contains(Key key) {
         return get(key) != null;
+    }
+    
+    public void visitNode(String s)
+    {
+    	visitNode(root, s);
+    }
+    
+    public void visitNode(Node x, String s)
+    {
+    	if(x.left != null)
+    	{
+    		visitNode(x.left, s);
+    	}
+    	if(x.right != null) 
+    	{
+    		visitNode(x.right, s);
+    	}
+    	if(x.left == null && x.right == null)
+    	{
+    		//DING DING DING LEAF!
+    		if(s.length() == ((String)x.key).length())
+    		{
+    			if(LevenshteinDistance.getLevenshteinDistance(s, (String)x.key) == 1)
+    				System.out.println((String)x.key);
+    		}
+    	}
     }
 
 
