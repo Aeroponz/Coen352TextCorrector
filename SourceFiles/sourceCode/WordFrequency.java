@@ -34,6 +34,8 @@ public class WordFrequency
         
         while ((sts = br.readLine()) != null) 
         {
+    		sts = sts.replaceAll("--", " ");
+    		sts = sts.replaceAll("[\\.|,|;|:|'|_|-|\"]", " ");
         	String[] splitLine = sts.split(" ");
         	for(String word : splitLine)
         	{

@@ -14,29 +14,31 @@ import java.util.regex.Matcher;
 public class WhitespaceCorrection {
 	String FilePath;
 	RedBlackBST<String, Integer> Dictionary;
-	HashMap<String, Integer> TwoLetterWords;
+	HashMap<String, Integer> CommonWords;
 	
 	public WhitespaceCorrection(String iFilePath, RedBlackBST<String, Integer> iDictionary)
 	{
 		FilePath = iFilePath;
 		Dictionary = iDictionary;
-		TwoLetterWords = new HashMap<String, Integer>();
-		TwoLetterWords.put("to", 6);
-		TwoLetterWords.put("as", 6);
-		TwoLetterWords.put("is", 6);
-		TwoLetterWords.put("he", 6);
-		TwoLetterWords.put("do", 6);
-		TwoLetterWords.put("go", 6);
-		TwoLetterWords.put("if", 6);
-		TwoLetterWords.put("of", 6);
-		TwoLetterWords.put("so", 6);
-		TwoLetterWords.put("it", 6);
-		TwoLetterWords.put("or", 6);
-		TwoLetterWords.put("me", 6);
-		TwoLetterWords.put("my", 6);
-		TwoLetterWords.put("in", 6);
-		TwoLetterWords.put("i", 6);
-		TwoLetterWords.put("a", 6);
+		CommonWords = new HashMap<String, Integer>();
+		CommonWords.put("to", 6);
+		CommonWords.put("as", 6);
+		CommonWords.put("is", 6);
+		CommonWords.put("he", 6);
+		CommonWords.put("do", 6);
+		CommonWords.put("go", 6);
+		CommonWords.put("if", 6);
+		CommonWords.put("of", 6);
+		CommonWords.put("so", 6);
+		CommonWords.put("it", 6);
+		CommonWords.put("or", 6);
+		CommonWords.put("me", 6);
+		CommonWords.put("my", 6);
+		CommonWords.put("in", 6);
+		CommonWords.put("on", 6);
+		CommonWords.put("i", 4);
+		CommonWords.put("i", 4);
+		CommonWords.put("the", 8);
 	}
 	
 	public void CorrectWhiteSpaces() throws IOException
@@ -54,19 +56,21 @@ public class WhitespaceCorrection {
         
         while ((sts = br.readLine()) != null) 
         {
+    		sts = sts.replaceAll("--", " ");
+    		sts = sts.replaceAll("[\\.|,|;|:|'|_|-|\"]", " ");
         	String[] splitLine = sts.split(" ");
         	for(String word : splitLine)
         	{
-        		word = word.replaceAll("[\\.|,|;|'|\"]", "");
         		if(!Dictionary.contains(word))
     			{
         			CorrectedWords = AnalyseWord(word);
         			
         			if(CorrectedWords[0] != "")
         			{
-        				if (CorrectedWords[1] != "") 
+        				if (CorrectedWords[1] != "" && Dictionary.contains(CorrectedWords[1])) 
         				{
-        					outSuggestions.println(word +"," + CorrectedWords[0] + " " + CorrectedWords[1]);
+        					if(Dictionary.contains(CorrectedWords[0])) outSuggestions.println(word +", " + CorrectedWords[0] + " " + CorrectedWords[1]);
+        					else outSuggestions.println(word +", " + CorrectedWords[1]);
         					outCorrectedText.append(CorrectedWords[0] + " " + CorrectedWords[1] + " ");
         				}
         				else outCorrectedText.append(CorrectedWords[0] + " ");
@@ -169,28 +173,36 @@ public class WhitespaceCorrection {
 			if(SS1Hit) 
 				{
 					tempWeight = SS1.length() - 2;
-					if (TwoLetterWords.containsKey(SS1) && (!(SS2.length() < 6) || TwoLetterWords.containsKey(SS2))) 
+					if (CommonWords.containsKey(SS1) && (!(SS2.length() < 6) || CommonWords.containsKey(SS2))) 
 						{
-							tempWeight +=6;
+							tempWeight += CommonWords.get(SS1);
 						}
-					if (SS2.length() < 4 && !TwoLetterWords.containsKey(SS2)) 
+					if (SS2.length() < 4 && !CommonWords.containsKey(SS2)) 
 						{
-							tempWeight -=6;
+							tempWeight -= 6;
 						}
 				}
 			else 
 				{
+
 					tempWeight = SS2.length() - 2;
-					if (TwoLetterWords.containsKey(SS2) && !((SS1.length() < 6) || TwoLetterWords.containsKey(SS1))) 
+					if(SS2.length() >=3)
+					{
+							if (SS2.substring(SS2.length() - 3).equalsIgnoreCase("ing")) 
+								{
+									tempWeight -= 6;
+								} //probably a verb
+					}
+					if (CommonWords.containsKey(SS2) && !((SS1.length() < 5) || CommonWords.containsKey(SS1))) 
 						{
-							tempWeight +=6;
+							tempWeight += CommonWords.get(SS2);
 						}
-					if (SS1.length() < 4 && !TwoLetterWords.containsKey(SS1)) 
+					if (SS1.length() < 4 && !CommonWords.containsKey(SS1)) 
 						{
-							tempWeight -=6;
+							tempWeight -= 6;
 						}
 				}
-			System.out.println(iWord + ": " + SS1 + "/" + SS2 + " || SS1Hit: " + SS1Hit + " tempWeight: " + tempWeight);
+			//System.out.println(iWord + ": " + SS1 + "/" + SS2 + " || SS1Hit: " + SS1Hit + " tempWeight: " + tempWeight);
 			
 			if(tempWeight > MaxWeight) 
 				{

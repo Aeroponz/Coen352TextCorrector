@@ -3,6 +3,8 @@ import java.nio.file.Paths;
 import sourceCode.RedBlackBST;
 import sourceCode.WordFrequency;
 import sourceCode.WhitespaceCorrection;
+import sourceCode.LevenshteinDistance;
+import sourceCode.MutatedCharCorrection;
 
 import java.nio.file.Path;
 import java.io.*;
@@ -44,26 +46,36 @@ import java.io.*;
             System.out.println("");
             
             //PART A
-//            for(int i = 0; i < FilesToCorrect; i++)
-//            {
-//            	System.out.println("\nStarting Word Frequency Analysis ( " + (i+1) + "/" + FilesToCorrect + " )");
-//            	System.out.println("Start Time: " + System.currentTimeMillis());
-//            	long start = System.currentTimeMillis();
-//            	WordFrequency File1 = new WordFrequency(path + "\\InputFiles\\CleanText\\" + i + ".txt", dictionary);
-//            	File1.AnalyseFile();
-//            	long finish = System.currentTimeMillis();
-//            	System.out.println("Word Frequency Analysis Completed.\nEnd Time: " + finish + "\nRuntime: " + (finish - start));
-//            }
-            //PART B
             for(int i = 0; i < FilesToCorrect; i++)
             {
             	System.out.println("\nStarting Word Frequency Analysis ( " + (i+1) + "/" + FilesToCorrect + " )");
             	System.out.println("Start Time: " + System.currentTimeMillis());
             	long start = System.currentTimeMillis();
-            	WhitespaceCorrection File1 = new WhitespaceCorrection(path + "\\InputFiles\\RemovedSpaces\\" + i + ".txt", dictionary);
-            	File1.CorrectWhiteSpaces();
+            	WordFrequency File1 = new WordFrequency(path + "\\InputFiles\\CleanText\\" + i + ".txt", dictionary);
+            	File1.AnalyseFile();
             	long finish = System.currentTimeMillis();
             	System.out.println("Word Frequency Analysis Completed.\nEnd Time: " + finish + "\nRuntime: " + (finish - start));
             }
+            
+            //PART B
+            for(int i = 0; i < FilesToCorrect; i++)
+            {
+            	System.out.println("\nStarting Whitespace Correction ( " + (i+1) + "/" + FilesToCorrect + " )");
+            	System.out.println("Start Time: " + System.currentTimeMillis());
+            	long start = System.currentTimeMillis();
+            	WhitespaceCorrection File1 = new WhitespaceCorrection(path + "\\InputFiles\\RemovedSpaces\\" + i + ".txt", dictionary);
+            	File1.CorrectWhiteSpaces();
+            	long finish = System.currentTimeMillis();
+            	System.out.println("Whitespace Correction Completed.\nEnd Time: " + finish + "\nRuntime: " + (finish - start));
+            	System.out.println("\nStarting Word Frequency Analysis ( " + (i+1) + "/" + FilesToCorrect + " )");
+            	System.out.println("Start Time: " + System.currentTimeMillis());
+            	start = System.currentTimeMillis();
+            	WordFrequency File2 = new WordFrequency(path + "\\OutputFiles\\corrected_text" + i + ".txt", dictionary);
+            	File2.AnalyseFile();
+            	finish = System.currentTimeMillis();
+            	System.out.println("Word Frequency Analysis Completed.\nEnd Time: " + finish + "\nRuntime: " + (finish - start));
+            }
+            
+            System.out.println(LevenshteinDistance.getLevenshteinDistance("t<ain", "train"));
        } 
    } 
