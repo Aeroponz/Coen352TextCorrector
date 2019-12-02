@@ -1,5 +1,7 @@
 package sourceCode;
 
+import java.util.Stack;
+
 public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     private static final boolean RED   = true;
@@ -7,6 +9,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 
     private Node root;     // root of the BST
     private int n;         // number of key-value pairs in BST
+	Stack<Node> stack;
 
     // BST helper node data type
     private class Node {
@@ -45,32 +48,36 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
         return get(key) != null;
     }
     
-    public void visitNode(String s)
+    public void BSTIterator()
     {
-    	visitNode(root, s);
+    	BSTIterator(root);
     }
+     
+    public void BSTIterator(Node root) {
+   		stack = new Stack<Node>();
+   		while (root != null) {
+   			stack.push(root);
+   			root = root.left; 
+   			}
+    	}
+     
+    public boolean hasNext() {
+   		return !stack.isEmpty();
+   	}
     
-    public void visitNode(Node x, String s)
-    {
-    	if(x.left != null)
-    	{
-    		visitNode(x.left, s);
-    	}
-    	if(x.right != null) 
-    	{
-    		visitNode(x.right, s);
-    	}
-    	if(x.left == null && x.right == null)
-    	{
-    		//DING DING DING LEAF!
-    		if(s.length() == ((String)x.key).length())
-    		{
-    			if(LevenshteinDistance.getLevenshteinDistance(s, (String)x.key) == 1)
-    				System.out.println((String)x.key);
-    		}
-    	}
-    }
-
+   	public Key next() {
+   		Node node = stack.pop();
+   		Key result = node.key;
+   		if (node.right != null) {
+   			node = node.right;
+   			while (node != null) {
+   				stack.push(node);
+   				node = node.left;
+   			}
+   		}
+   		return result;
+   	}
+    
 
    /***************************************************************************
     *  Red-black tree insertion.

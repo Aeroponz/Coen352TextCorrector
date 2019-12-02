@@ -45,38 +45,56 @@ import java.io.*;
             System.out.println("BST is healthy: " + dictionary.check());
             System.out.println("");
             
+            //Check Dictionary
+//            dictionary.BSTIterator();
+//            while(dictionary.hasNext())
+//            {
+//            	System.out.println(dictionary.next());
+//            }
+            
             //PART A
             for(int i = 0; i < FilesToCorrect; i++)
             {
             	System.out.println("\nStarting Word Frequency Analysis ( " + (i+1) + "/" + FilesToCorrect + " )");
-            	System.out.println("Start Time: " + System.currentTimeMillis());
-            	long start = System.currentTimeMillis();
+            	long start = System.nanoTime();
             	WordFrequency File1 = new WordFrequency(path + "\\InputFiles\\CleanText\\" + i + ".txt", dictionary);
             	File1.AnalyseFile();
-            	long finish = System.currentTimeMillis();
-            	System.out.println("Word Frequency Analysis Completed.\nEnd Time: " + finish + "\nRuntime: " + (finish - start));
+            	long finish = System.nanoTime();
+            	System.out.println("Word Frequency Analysis Completed.\nRuntime: " + (finish - start) + " ns");
             }
             
             //PART B
             for(int i = 0; i < FilesToCorrect; i++)
             {
             	System.out.println("\nStarting Whitespace Correction ( " + (i+1) + "/" + FilesToCorrect + " )");
-            	System.out.println("Start Time: " + System.currentTimeMillis());
-            	long start = System.currentTimeMillis();
+            	long start = System.nanoTime();
             	WhitespaceCorrection File1 = new WhitespaceCorrection(path + "\\InputFiles\\RemovedSpaces\\" + i + ".txt", dictionary);
             	File1.CorrectWhiteSpaces();
-            	long finish = System.currentTimeMillis();
-            	System.out.println("Whitespace Correction Completed.\nEnd Time: " + finish + "\nRuntime: " + (finish - start));
+            	long finish = System.nanoTime();
+            	System.out.println("Whitespace Correction Completed.\nRuntime: " + (finish - start) + " ns");
             	System.out.println("\nStarting Word Frequency Analysis ( " + (i+1) + "/" + FilesToCorrect + " )");
-            	System.out.println("Start Time: " + System.currentTimeMillis());
-            	start = System.currentTimeMillis();
+            	start = System.nanoTime();
             	WordFrequency File2 = new WordFrequency(path + "\\OutputFiles\\corrected_text" + i + ".txt", dictionary);
             	File2.AnalyseFile();
-            	finish = System.currentTimeMillis();
-            	System.out.println("Word Frequency Analysis Completed.\nEnd Time: " + finish + "\nRuntime: " + (finish - start));
+            	finish = System.nanoTime();
+            	System.out.println("Word Frequency Analysis Completed.\nRuntime: " + (finish - start) + " ns");
             }
             
-            
-            dictionary.visitNode("en%ering");
+          //PART C
+            for(int i = 0; i < FilesToCorrect; i++)
+            {
+            	System.out.println("\nStarting Mutated Character Correction ( " + (i+1) + "/" + FilesToCorrect + " )");
+            	long start = System.nanoTime();
+            	MutatedCharCorrection File1 = new MutatedCharCorrection(path + "\\InputFiles\\MutatedChars\\" + i + ".txt", dictionary);
+            	File1.CorrectMutatedChars();
+            	long finish = System.nanoTime();
+            	System.out.println("Mutated Character Correction Completed.\nRuntime: " + (finish - start) + " ns");
+            	System.out.println("\nStarting Word Frequency Analysis ( " + (i+1) + "/" + FilesToCorrect + " )");
+            	start = System.nanoTime();
+            	WordFrequency File2 = new WordFrequency(path + "\\OutputFiles\\mutatedcorrected_text" + i + ".txt", dictionary);
+            	File2.AnalyseFile();
+            	finish = System.nanoTime();
+            	System.out.println("Word Frequency Analysis Completed.\nRuntime: " + (finish - start) + " ns");
+            }
        } 
    } 

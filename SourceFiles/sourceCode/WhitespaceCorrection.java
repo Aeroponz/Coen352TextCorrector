@@ -202,6 +202,8 @@ public class WhitespaceCorrection {
 							tempWeight -= 6;
 						}
 				}
+			
+			//Debug
 			//System.out.println(iWord + ": " + SS1 + "/" + SS2 + " || SS1Hit: " + SS1Hit + " tempWeight: " + tempWeight);
 			
 			if(tempWeight > MaxWeight) 
