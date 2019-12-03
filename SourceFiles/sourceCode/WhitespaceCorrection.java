@@ -37,7 +37,7 @@ public class WhitespaceCorrection {
 		CommonWords.put("in", 6);
 		CommonWords.put("on", 6);
 		CommonWords.put("i", 4);
-		CommonWords.put("i", 4);
+		CommonWords.put("a", 4);
 		CommonWords.put("the", 8);
 	}
 	
