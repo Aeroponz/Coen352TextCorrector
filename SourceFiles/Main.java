@@ -79,6 +79,7 @@ import java.io.*;
             	finish = System.nanoTime();
             	System.out.println("Word Frequency Analysis Completed.\nRuntime: " + (finish - start) + " ns");
             }
+            //FilesToCorrect = 1;
             
           //PART C
             for(int i = 0; i < FilesToCorrect; i++)
